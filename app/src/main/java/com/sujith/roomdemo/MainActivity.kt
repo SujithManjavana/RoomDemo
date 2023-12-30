@@ -36,14 +36,15 @@ class MainActivity : AppCompatActivity() {
 
     private fun displaySubscribersList() {
         subscriberViewmodel.subscribers.observe(this@MainActivity, Observer {
-            binding.subscriberRecyclerView.adapter = MyRecyclerviewAdapter(it) { selectedItem: Subscriber ->
-                clickListener(selectedItem)
-            }
+            binding.subscriberRecyclerView.adapter =
+                MyRecyclerviewAdapter(it) { selectedItem: Subscriber ->
+                    clickListener(selectedItem)
+                }
         })
     }
 
-    private fun clickListener(subscriber: Subscriber){
-        Toast.makeText(this,subscriber.name,Toast.LENGTH_SHORT).show()
+    private fun clickListener(subscriber: Subscriber) {
+        subscriberViewmodel.initUpdateOrDelete(subscriber)
     }
 }
 
