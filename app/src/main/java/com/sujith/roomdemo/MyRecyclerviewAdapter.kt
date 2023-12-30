@@ -7,7 +7,10 @@ import androidx.recyclerview.widget.RecyclerView
 import com.sujith.roomdemo.databinding.ListItemBinding
 import com.sujith.roomdemo.db.Subscriber
 
-class MyRecyclerviewAdapter(private val subscribers: List<Subscriber>) :
+class MyRecyclerviewAdapter(
+    private val subscribers: List<Subscriber>,
+    private val myClickListener: (Subscriber) -> Unit
+) :
     RecyclerView.Adapter<MyViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
         val layoutInflater = LayoutInflater.from(parent.context)
@@ -21,13 +24,16 @@ class MyRecyclerviewAdapter(private val subscribers: List<Subscriber>) :
     }
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
-        holder.bind(subscribers[position])
+        holder.bind(subscribers[position], myClickListener)
     }
 }
 
 class MyViewHolder(private val binding: ListItemBinding) : RecyclerView.ViewHolder(binding.root) {
-    fun bind(subscriber: Subscriber) {
+    fun bind(subscriber: Subscriber, myClickListener: (Subscriber) -> Unit) {
         binding.nameTxt.text = subscriber.name
         binding.emailTxt.text = subscriber.email
+        binding.listItemLayout.setOnClickListener {
+            myClickListener(subscriber)
+        }
     }
 }
