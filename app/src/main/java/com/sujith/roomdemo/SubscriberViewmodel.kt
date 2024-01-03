@@ -15,6 +15,7 @@ class SubscriberViewmodel(private val repository: SubscriberRepository) : ViewMo
     val inputEmail = MutableLiveData<String>()
     val saveOrUpdateBtnText = MutableLiveData<String>()
     val clearOrDeleteBtnText = MutableLiveData<String>()
+    val message = MutableLiveData<String>()
     private var isUpdateOrDelete = false
     private lateinit var subscriberToUpdateOrDelete: Subscriber
 
@@ -45,6 +46,9 @@ class SubscriberViewmodel(private val repository: SubscriberRepository) : ViewMo
 
     private fun insert(subscriber: Subscriber) = viewModelScope.launch(Dispatchers.IO) {
         repository.insert(subscriber)
+        withContext(Dispatchers.Main){
+            message.value = "Inserted!"
+        }
     }
 
     private fun update(subscriber: Subscriber) = viewModelScope.launch(Dispatchers.IO) {

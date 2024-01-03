@@ -26,6 +26,9 @@ class MainActivity : AppCompatActivity() {
 
         binding.viewModel = subscriberViewmodel
         binding.lifecycleOwner = this
+        subscriberViewmodel.message.observe(this) {
+            Toast.makeText(this, it, Toast.LENGTH_SHORT).show()
+        }
         initRecyclerview()
     }
 
