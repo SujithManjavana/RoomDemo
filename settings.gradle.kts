@@ -15,3 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "RoomDemo"
 include(":app")
+include(":KotlinPlayground")
